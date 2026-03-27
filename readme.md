@@ -18,11 +18,11 @@ See `carpet_regions.ipynb`
 
 # 2. Structural Looseness Prediction
 
-## Feature Engineering plots
+## 2.1 Feature Engineering plots
 
 See `order_spectrum_features.ipynb`
 
-## Domain Knowledge + Data Driven Approach (Successful)
+## 2.2 Domain Knowledge + Data Driven Approach (Successful)
 
 Algorithm:
 ```
@@ -151,9 +151,9 @@ Classification results:
 
 
 
-## 100% Data-Driven Approach (Failed)
+## 2.2 100% Data-Driven Approach (Failed)
 
-We perform neural architecture search following a designed search space of simple and small convolution neural networks (CNNs) with a final MLP classification layer, executing over 350 trials of different architectures (varying kernel size, number of blocks, stem channel dimension) and hyperparameters. We do not employ feature engineering of any kind, only z-normalization of the original features. After training with the LOSO Cross-Validation we obtain the following results:
+We perform neural architecture search following a designed search space of simple and small convolution neural networks (CNNs) with a final MLP classification layer, executing over 350 trials of different architectures (varying kernel size, number of blocks, stem channel dimension) and hyperparameters. We do not employ manual feature engineering of any kind, only z-normalization of the original features. After training with the LOSO Cross-Validation we obtain the following results:
 ```
   {
     "heldout_sensor": "EZY2642",
