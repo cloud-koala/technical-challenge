@@ -29,9 +29,7 @@ from src.data.dataloader import (
     standardize_orientation,
 )
 from src.model.conv import ConvNetClassifier, ConvNetConfig
-from src.model.conv_lstm import ConvLSTMClassifier, ConvLSTMConfig
 from src.model.linear import LinearClassifier, LinearConfig
-from src.model.window_hier_lstm import WindowHierLSTMClassifier, WindowHierLSTMConfig
 from src.preprocessing.preprocessor import Preprocessor
 from src.training.config import load_config
 from src.training.metrics import compute_metrics
@@ -542,45 +540,7 @@ def _train_one(
     else:
         feature_length = int(preprocessor.window_size())
 
-    if model_name == "conv_lstm":
-        train_ds = WindowedSignalDataset(
-            data_dir=data_dir,
-            samples=train_samples,
-            label_to_index=label_to_index,
-            preprocessor=preprocessor,
-            output_order=output_order,
-            return_rpm=rpm_conditioning,
-        )
-        val_ds = WindowedSignalDataset(
-            data_dir=data_dir,
-            samples=val_samples,
-            label_to_index=label_to_index,
-            preprocessor=preprocessor,
-            output_order=output_order,
-            return_rpm=rpm_conditioning,
-        )
-        test_ds = WindowedSignalDataset(
-            data_dir=data_dir,
-            samples=test_samples,
-            label_to_index=label_to_index,
-            preprocessor=preprocessor,
-            output_order=output_order,
-            return_rpm=rpm_conditioning,
-        )
-
-        model = ConvLSTMClassifier(
-            ConvLSTMConfig(
-                in_channels=int(model_cfg.get("in_channels", 3)),
-                conv_channels=int(model_cfg.get("conv_channels", 128)),
-                lstm_hidden=int(model_cfg.get("lstm_hidden", 64)),
-                lstm_layers=int(model_cfg.get("lstm_layers", 2)),
-                num_classes=len(label_to_index),
-                rpm_conditioning=rpm_conditioning,
-                rpm_embed_dim=rpm_embed_dim,
-            )
-        )
-
-    elif model_name in {"conv_net", "conv"}:
+    if model_name in {"conv_net", "conv"}:
         train_ds = WindowedSignalDataset(
             data_dir=data_dir,
             samples=train_samples,
@@ -651,55 +611,6 @@ def _train_one(
                 in_channels=int(model_cfg.get("in_channels", 3)),
                 input_length=int(model_cfg.get("input_length", feature_length)),
                 dropout=float(model_cfg.get("dropout", 0.0)),
-                num_classes=len(label_to_index),
-                rpm_conditioning=rpm_conditioning,
-                rpm_embed_dim=rpm_embed_dim,
-            )
-        )
-
-    elif model_name == "window_hier_lstm":
-        n_windows = int(model_cfg.get("n_windows", 10))
-        train_ds = SubjectWindowDataset(
-            data_dir=data_dir,
-            samples=train_samples,
-            label_to_index=label_to_index,
-            preprocessor=preprocessor,
-            n_windows=n_windows,
-            output_order=output_order,
-            random_start=True,
-            seed=seed,
-            return_rpm=rpm_conditioning,
-        )
-        val_ds = SubjectWindowDataset(
-            data_dir=data_dir,
-            samples=val_samples,
-            label_to_index=label_to_index,
-            preprocessor=preprocessor,
-            n_windows=n_windows,
-            output_order=output_order,
-            random_start=False,
-            seed=seed,
-            return_rpm=rpm_conditioning,
-        )
-        test_ds = SubjectWindowDataset(
-            data_dir=data_dir,
-            samples=test_samples,
-            label_to_index=label_to_index,
-            preprocessor=preprocessor,
-            n_windows=n_windows,
-            output_order=output_order,
-            random_start=False,
-            seed=seed,
-            return_rpm=rpm_conditioning,
-        )
-
-        model = WindowHierLSTMClassifier(
-            WindowHierLSTMConfig(
-                in_channels=int(model_cfg.get("in_channels", 3)),
-                fc_dim=int(model_cfg.get("fc_dim", 64)),
-                fc_layers=int(model_cfg.get("fc_layers", 4)),
-                lstm_hidden=int(model_cfg.get("lstm_hidden", 64)),
-                lstm_layers=int(model_cfg.get("lstm_layers", 2)),
                 num_classes=len(label_to_index),
                 rpm_conditioning=rpm_conditioning,
                 rpm_embed_dim=rpm_embed_dim,
