@@ -18,7 +18,7 @@ See `carpet_regions.ipynb`
 
 # 2. Structural Looseness Prediction
 
-## Feature extraction plots
+## Feature Engineering plots
 
 See `order_spectrum_features.ipynb`
 
