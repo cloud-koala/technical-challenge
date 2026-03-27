@@ -11,9 +11,7 @@ import torch
 
 from src.data.dataloader import Part3Metadata, read_signal_csv, standardize_orientation
 from src.model.conv import ConvNetClassifier, ConvNetConfig
-from src.model.conv_lstm import ConvLSTMClassifier, ConvLSTMConfig
 from src.model.linear import LinearClassifier, LinearConfig
-from src.model.window_hier_lstm import WindowHierLSTMClassifier, WindowHierLSTMConfig
 from src.preprocessing.preprocessor import Preprocessor
 from src.training.config import load_config
 
@@ -152,17 +150,7 @@ def main() -> None:
         )
         inferred_input_length = max(1, inferred_input_length)
 
-    if model_name == "conv_lstm":
-        model: torch.nn.Module = ConvLSTMClassifier(
-            ConvLSTMConfig(
-                in_channels=int(model_cfg.get("in_channels", 3)),
-                conv_channels=int(model_cfg.get("conv_channels", 128)),
-                lstm_hidden=int(model_cfg.get("lstm_hidden", 64)),
-                lstm_layers=int(model_cfg.get("lstm_layers", 2)),
-                num_classes=len(label_to_index),
-            )
-        )
-    elif model_name in {"conv_net", "conv"}:
+    if model_name in {"conv_net", "conv"}:
         model = ConvNetClassifier(
             ConvNetConfig(
                 in_channels=int(model_cfg.get("in_channels", 3)),
@@ -170,17 +158,6 @@ def main() -> None:
                 block_channels=tuple(int(x) for x in model_cfg.get("block_channels", [128, 128, 256, 256])),
                 kernel_sizes=tuple(int(x) for x in model_cfg.get("kernel_sizes", [3, 5, 7])),
                 dropout=float(model_cfg.get("dropout", 0.2)),
-                num_classes=len(label_to_index),
-            )
-        )
-    elif model_name == "window_hier_lstm":
-        model = WindowHierLSTMClassifier(
-            WindowHierLSTMConfig(
-                in_channels=int(model_cfg.get("in_channels", 3)),
-                fc_dim=int(model_cfg.get("fc_dim", 64)),
-                fc_layers=int(model_cfg.get("fc_layers", 4)),
-                lstm_hidden=int(model_cfg.get("lstm_hidden", 64)),
-                lstm_layers=int(model_cfg.get("lstm_layers", 2)),
                 num_classes=len(label_to_index),
             )
         )
