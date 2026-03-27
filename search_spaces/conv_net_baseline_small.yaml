@@ -1,0 +1,119 @@
+# Hyperparameter + architecture search space for conv_net
+#
+# This is intentionally derived from configs/debug_conv_net.yaml, but with
+# reasonable ranges around each parameter.
+
+base_config: configs/small_conv_net.yaml
+
+study:
+  direction: maximize
+  metric: loso_mean_heldout_f1_macro
+
+engine:
+  sampler: tpe        # tpe|random
+  pruner: hyperband   # hyperband|asha|none
+  seed: 42
+
+# If true, each trial writes its artifacts under artifacts/hpo/<study_name>/trial_<n>/
+# (model.pkl, normalizer.pkl, metrics, etc.). This is convenient but uses disk.
+artifacts:
+  save_per_trial: true
+  output_root: artifacts/hpo
+
+# Search space definition
+#
+# Supported param types:
+#  - float: {low, high, log?: bool}
+#  - int: {low, high, step?: int, log?: bool}
+#  - categorical: {choices: [...]}  (choices can be scalars or lists)
+#
+# Keys are dotted paths into the config dict.
+search_space:
+  # Preprocessing
+  preprocessing.downsample_hz:
+    type: float
+    low: 100.0
+    high: 4000.0
+    log: true
+  preprocessing.window_seconds:
+    type: float
+    low: 0.01
+    high: 0.10
+
+  # Model (conv_net)
+  model.stem_channels:
+    type: categorical
+    choices: [8, 16, 32]
+  model.dropout:
+    type: float
+    low: 0.0
+    high: 0.4
+
+  # Architecture controls (we build block_channels from these)
+  hpo.num_blocks:
+    type: int
+    low: 2
+    high: 6
+  hpo.block_width:
+    type: categorical
+    choices: [8, 16, 32]
+  hpo.width_multiplier:
+    type: categorical
+    choices: [1, 2]
+
+  # Multi-scale kernel set options (lists are allowed)
+  hpo.kernel_set:
+    type: categorical
+    choices:
+      - [21]
+      - [33]
+      - [5, 21]
+      - [7, 33]
+      - [21, 33]
+      - [3, 7, 33]
+      - [1, 3, 7, 21]
+      - [1, 3, 7, 33]
+      - [3, 7, 21, 33]
+
+  # Optim + regularization
+  training.batch_size:
+    type: categorical
+    choices: [8, 16, 32, 64]
+  training.lr:
+    type: float
+    low: 1.0e-5
+    high: 3.0e-3
+    log: true
+  training.weight_decay:
+    type: float
+    low: 1.0e-6
+    high: 5.0e-2
+    log: true
+  training.label_smoothing:
+    type: float
+    low: 0.0
+    high: 0.1
+  training.mixup_alpha:
+    type: float
+    low: 0.0
+    high: 0.4
+  training.time_mask_prob:
+    type: float
+    low: 0.0
+    high: 0.5
+  training.time_mask_ratio:
+    type: float
+    low: 0.0
+    high: 0.2
+
+# Fixed settings applied during the search (overrides base_config)
+fixed_overrides:
+  model.name: conv_net
+  protocol.name: loso
+  training.optimizer: adamw
+  training.epochs: 5
+  training.grad_clip_norm: 1.0
+  training.early_stopping_patience: 0
+  training.early_stopping_min_epochs: 0
+  training.early_stopping_min_delta: 0.0
+  

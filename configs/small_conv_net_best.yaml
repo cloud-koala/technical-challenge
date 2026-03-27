@@ -1,0 +1,60 @@
+# Debug configuration for the pure 1D CNN (no LSTM)
+
+data:
+  part3_root: data/part_3
+  train_metadata: part_3_metadata.csv
+  train_data_dir: data
+
+orientation:
+  output_order: [vertical, axial, horizontal]
+
+preprocessing:
+  downsample_hz: 742.03797474182
+  window_seconds: 0.0760876298581771
+  step_seconds: null
+  z_norm: true
+
+model:
+  name: conv_net
+  in_channels: 3
+  stem_channels: 32
+  block_channels: [16, 16, 16, 16, 16]
+  kernel_sizes: [3, 7, 33]
+  dropout: 0.12555724603931073
+
+training:
+  seed: 42
+  # Balance at the *sample_id* level (undersample) to ~50/50 within each split.
+  # Note: this changes evaluation distribution; enable only if that's intended.
+  balance_train: true
+  balance_val: true
+  balance_test: true
+  balance_seed: 42
+  batch_size: 16
+  epochs: 5
+  lr: 0.0006966869590896839
+  optimizer: adamw
+  weight_decay: 2.3934518226431163e-05
+  label_smoothing: 0.04352843601104618
+  grad_clip_norm: 1.0
+  mixup_alpha: 0.08572170917530572
+  time_mask_prob: 0.11108994764880299
+  time_mask_ratio: 0.19064439764498506
+  num_workers: 0
+  device: auto
+  early_stopping_patience: 0.0
+  early_stopping_min_epochs: 0.0
+  early_stopping_min_delta: 0.0
+
+protocol:
+  name: loso
+  split:
+    train_ratio: 0.7
+    val_ratio: 0.15
+    test_ratio: 0.15
+  loso:
+    val_ratio_within_train: 0.15
+
+artifacts:
+  output_dir: artifacts
+  run_name: small_conv_net_best

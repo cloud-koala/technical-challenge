@@ -1,0 +1,8 @@
+sample_id,sensor_id,rpm,orientation,pred_label,prob_healthy,prob_structural_looseness
+33542920-30ea-5844-861d-2c82d79087b8,,1170.0,"{""axisX"": ""vertical"", ""axisY"": ""horizontal"", ""axisZ"": ""axial""}",structural_looseness,0.245481938123703,0.7545180320739746
+e057600e-3b4e-58ba-b8b8-357169ae6bf6,,1800.0,"{""axisX"": ""horizontal"", ""axisY"": ""axial"", ""axisZ"": ""vertical""}",structural_looseness,0.073788583278656,0.9262115359306335
+01e98ad9-23c9-5986-ace0-4519bad71198,,1785.0,"{""axisX"": ""horizontal"", ""axisY"": ""axial"", ""axisZ"": ""vertical""}",healthy,0.6816716194152832,0.31832829117774963
+2211750b-6672-5a94-bd40-cda811f69d01,,2025.0,"{""axisX"": ""horizontal"", ""axisY"": ""axial"", ""axisZ"": ""vertical""}",structural_looseness,0.010306790471076965,0.989693284034729
+680bbcbf-b1c8-544d-8f80-bf763cdcd128,,3573.0,"{""axisX"": ""vertical"", ""axisY"": ""axial"", ""axisZ"": ""horizontal""}",structural_looseness,0.0032663082238286734,0.9967337250709534
+1dab1534-b8a8-5962-b01c-bff0782d54a9,,3545.0,"{""axisX"": ""vertical"", ""axisY"": ""axial"", ""axisZ"": ""horizontal""}",healthy,0.5159384608268738,0.4840615391731262
+9f3b933a-1bc3-5093-9dee-800cc03c6b1d,,1590.0,"{""axisX"": ""horizontal"", ""axisY"": ""axial"", ""axisZ"": ""vertical""}",structural_looseness,0.018768204376101494,0.9812318086624146
