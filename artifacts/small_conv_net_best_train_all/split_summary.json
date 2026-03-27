@@ -1,0 +1,45 @@
+{
+  "train": {
+    "n_samples": 213,
+    "n_sensors": 4,
+    "sensors": [
+      "EZY2642",
+      "PTA5611",
+      "UKK6686",
+      "VLQ4172"
+    ],
+    "labels": [
+      "healthy",
+      "structural_looseness"
+    ],
+    "label_counts": {
+      "healthy": 69,
+      "structural_looseness": 144
+    }
+  },
+  "val": {
+    "n_samples": 37,
+    "n_sensors": 4,
+    "sensors": [
+      "EZY2642",
+      "PTA5611",
+      "UKK6686",
+      "VLQ4172"
+    ],
+    "labels": [
+      "healthy",
+      "structural_looseness"
+    ],
+    "label_counts": {
+      "healthy": 12,
+      "structural_looseness": 25
+    }
+  },
+  "test": {
+    "n_samples": 0,
+    "n_sensors": 0,
+    "sensors": [],
+    "labels": [],
+    "label_counts": {}
+  }
+}

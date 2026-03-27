@@ -1,0 +1,58 @@
+{
+  "enabled": {
+    "train": false,
+    "val": true,
+    "test": true
+  },
+  "seed": 42,
+  "before": {
+    "train": {
+      "n": 213,
+      "labels": [
+        "healthy",
+        "structural_looseness"
+      ],
+      "label_counts": {
+        "healthy": 69,
+        "structural_looseness": 144
+      }
+    },
+    "val": {
+      "n": 37,
+      "labels": [
+        "healthy",
+        "structural_looseness"
+      ],
+      "label_counts": {
+        "healthy": 12,
+        "structural_looseness": 25
+      }
+    },
+    "test": {
+      "n": 0,
+      "labels": [],
+      "label_counts": {}
+    }
+  },
+  "after": {
+    "train": {
+      "n": 213,
+      "label_counts": {
+        "healthy": 69,
+        "structural_looseness": 144
+      }
+    },
+    "val": {
+      "n": 24,
+      "label_counts": {
+        "structural_looseness": 12,
+        "healthy": 12
+      }
+    },
+    "test": {
+      "n": 0,
+      "label_counts": {}
+    }
+  },
+  "note": "Balancing is sample-level undersampling (drops sample_id rows), not window-level."
+}

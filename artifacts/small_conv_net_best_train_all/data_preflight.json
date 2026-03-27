@@ -1,0 +1,7 @@
+{
+  "data_dir": "data/part_3/data",
+  "metadata_rows": 250,
+  "labeled_rows": 250,
+  "csv_files": 250,
+  "extra_csvs_ignored": 0
+}
