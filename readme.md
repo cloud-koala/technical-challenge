@@ -1,6 +1,6 @@
 # How to run
 
-Carpet Region (Task 1) detection and Feature Extraction plots (Task 2.1) are self-contained in the indicated jupyter notebooks in their respective sections.
+Carpet Region (Task 1) detection and Feature Engineering plots (Task 2.1) are self-contained in the indicated jupyter notebooks in their respective sections.
 
 To Run our suggested method:
 
@@ -153,7 +153,7 @@ Classification results:
 
 ## 100% Data-Driven Approach (Failed)
 
-We perform neural architectural search following a designed search space of simple and small convolution neural networks (CNNs) with a final MLP classification layer, executing over 350 trials of different architectures (varying kernel size, number of blocks, stem channel dimension) and hyperparameters. We do not employ feature extraction of any kind, only z-normalization of the original features. After training with the LOSO Cross-Validation we obtain the following results:
+We perform neural architectural search following a designed search space of simple and small convolution neural networks (CNNs) with a final MLP classification layer, executing over 350 trials of different architectures (varying kernel size, number of blocks, stem channel dimension) and hyperparameters. We do not employ feature engineering of any kind, only z-normalization of the original features. After training with the LOSO Cross-Validation we obtain the following results:
 ```
   {
     "heldout_sensor": "EZY2642",
