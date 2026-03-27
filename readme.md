@@ -2,7 +2,7 @@
 
 Carpet Region (Task 1) detection and Feature Engineering plots (Task 2.1) are self-contained in the indicated jupyter notebooks in their respective sections.
 
-For Structural Looseness Classification (Task 2.2), use our suggested method by executing the following commands:
+For Structural Looseness Classification (Task 2.2), use our suggested method by running the following commands:
 
 Training from scratch (optional):
 `python -m src.training.train --config configs/order_spectrum_linear.yaml`
