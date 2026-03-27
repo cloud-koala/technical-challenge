@@ -5,10 +5,10 @@ Carpet Region (Task 1) detection and Feature Extraction plots (Task 2.1) are sel
 To Run our suggested method:
 
 Training from scratch:
-`python -m src.training.train_linear --config configs/order_spectrum_linear.yaml --out artifacts/order_spectrum_linear`
+`python -m src.training.train --config configs/order_spectrum_linear.yaml`
 
 Inference only:
-`python -m src.training.evaluate_external --config order_spectrum_linear.yaml --artifacts artifacts/order_spectrum_linear --out external_test_predictions.csv`
+`python -m src.training.evaluate_external --config configs/order_spectrum_linear.yaml --artifacts artifacts/order_spectrum_linear --out external_test_predictions.csv`
 
 Use environment at `env.yml`
 
